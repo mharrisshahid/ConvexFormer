@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ConvexFormer | Drone Action Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --dark: #1f2937;
+            --accent: #7c3aed;
+            --light-bg: #f9fafb;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--light-bg);
+            color: #111827;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .conf-tag {
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 20px;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .authors {
+            font-weight: 600;
+            color: var(--dark);
+            margin-top: 10px;
+        }
+
+        .affiliations {
+            font-size: 14px;
+            color: #4b5563;
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 35px 0 10px;
+        }
+
+        .btn {
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+            background: var(--dark);
+            color: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .note {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: #374151;
+        }
+
+        /* Sections */
+        section {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        img.method-img {
+            width: 100%;
+            max-width: 900px;
+            display: block;
+            margin: 25px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background: #ede9fe;
+            color: #4c1d95;
+            font-weight: 700;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        a {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Drone Surveillance for Action Recognition via Mask R-CNN and Transformer Learning</h1>
+
+        <a href="https://inmic2025.riphah.edu.pk/" target="_blank" style="text-decoration:none;">
+            <div class="conf-tag">INMIC 2025</div>
+        </a>
+
+        <div class="authors">
+            Harris Shahid<sup>1</sup>, Shaheryar Najam<sup>2</sup>, Ahmad Jalal<sup>3</sup>
+        </div>
+
+        <div class="affiliations">
+            <sup>1</sup> Riphah International University ·
+            <sup>2</sup> Bahria University ·
+            <sup>3</sup> Air University
+        </div>
+    </div>
+
+    <div class="actions">
+        <a class="btn disabled">📄 Paper (Coming soon)</a>
+        <a class="btn" href="https://www.researchgate.net/publication/397411360_Drone_Surveillance_for_Action_Recognition_via_Mask_R-CNN_and_Transformer_learning" target="_blank">
+            🔗 ResearchGate
+        </a>
+        <a class="btn disabled">💻 Code</a>
+        <a class="btn" href="https://github.com/reddyav1/RoCoG-v2" target="_blank">
+            📂 Dataset
+        </a>
+        <a class="btn" href="#citation">📑 BibTeX</a>
+    </div>
+
+    <div class="note">
+        Note: Supplementary materials are available in the ResearchGate version.
+    </div>
+
+    <section>
+        <h2>Abstract</h2>
+        <p>
+            Human action recognition from an aerial view remains a challenging task due to unstable drone motion,
+            varying viewpoints, small target sizes, and low-resolution imagery. These challenges become more relevant
+            in drone-based surveillance systems where accurate and real-time activity recognition has significant
+            implications for public safety and crowd monitoring. In this work, we introduce a robust human action
+            recognition framework for real aerial drone footage.
+        </p>
+        <p>
+            Our strategy begins with silhouette extraction, generating Motion History Images to capture temporal
+            motion information. We track inter-frame movements by using ORB keypoint detection followed by Brute
+            Force Matching. Geometric descriptors, including convex hulls and convexity defects, together with
+            spatial energy-based features, represent the motion and shape characteristics. We fuse combined
+            features into one vector and feed it to a Transformer-based classifier to classify in a temporally
+            aware manner. The proposed approach achieves an accuracy of 88.7% on the real aerial subset of the
+            RoCoG-v2 dataset.
+        </p>
+    </section>
+
+    <section>
+        <h2>Method</h2>
+        <img src="BlockDiagram.png" alt="ConvexFormer Framework" class="method-img">
+        <p>
+            The proposed system, ConvexFormer, is a robust Convex Hull-driven spatiotemporal feature fusion framework
+            for transformer-based drone action recognition. RGB frames undergo preprocessing, followed by silhouette
+            extraction to isolate the human subject. ORB is used to extract local motion features, while shape
+            characteristics are captured using convex hull and convexity defects. Spatial activity regions are
+            emphasized through 2D spatial energy heatmaps, and temporal dynamics are encoded using Motion History
+            Images (MHI). These multimodal features are fused to enable accurate human action recognition using a
+            transformer-based model, as illustrated in Fig.
+        </p>
+    </section>
+
+    <section>
+        <h2>Results</h2>
+
+        <h3>1. Confusion Matrix</h3>
+        <table>
+            <tr>
+                <th>Class</th>
+                <th>Advance</th>
+                <th>Attention</th>
+                <th>FollowMe</th>
+                <th>Halt</th>
+                <th>Move Forward</th>
+                <th>Move-In Reverse</th>
+                <th>Rally</th>
+            </tr>
+            <tr><td>Move-In Reverse</td><td>0.74</td><td>0.04</td><td>0.02</td><td>0.07</td><td>0.06</td><td>0</td><td>0.07</td></tr>
+            <tr><td>Rally</td><td>0.07</td><td>0.68</td><td>0.05</td><td>0.02</td><td>0</td><td>0.09</td><td>0.07</td></tr>
+            <tr><td>Follow Me</td><td>0.02</td><td>0.09</td><td>0.63</td><td>0.11</td><td>0.04</td><td>0.09</td><td>0.02</td></tr>
+            <tr><td>Halt</td><td>0</td><td>0.04</td><td>0.02</td><td>0.89</td><td>0.02</td><td>0.02</td><td>0.01</td></tr>
+            <tr><td>Move Forward</td><td>0.04</td><td>0.04</td><td>0.04</td><td>0</td><td>0.84</td><td>0.01</td><td>0.04</td></tr>
+            <tr><td>Advance</td><td>0.004</td><td>0.007</td><td>0.007</td><td>0.007</td><td>0.004</td><td>0.96</td><td>0.012</td></tr>
+            <tr><td>Attention</td><td>0.02</td><td>0.01</td><td>0.01</td><td>0.01</td><td>0.01</td><td>0.01</td><td>0.94</td></tr>
+        </table>
+
+        <h3>2. Performance Evaluation Metrics</h3>
+        <table>
+            <tr>
+                <th>Class</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+            </tr>
+            <tr><td>Advance</td><td>0.86</td><td>0.74</td><td>0.80</td></tr>
+            <tr><td>Attention</td><td>0.55</td><td>0.68</td><td>0.61</td></tr>
+            <tr><td>FollowMe</td><td>0.66</td><td>0.63</td><td>0.64</td></tr>
+            <tr><td>Halt</td><td>0.89</td><td>0.89</td><td>0.89</td></tr>
+            <tr><td>MoveForward</td><td>0.77</td><td>0.84</td><td>0.81</td></tr>
+            <tr><td>MoveInReverse</td><td>0.95</td><td>0.96</td><td>0.96</td></tr>
+            <tr><td>Rally</td><td>0.94</td><td>0.94</td><td>0.94</td></tr>
+        </table>
+
+        <h3>3. SOTA Comparison</h3>
+        <table>
+            <tr>
+                <th>Dataset</th>
+                <th>Method</th>
+                <th>Accuracy (%)</th>
+            </tr>
+            <tr><td rowspan="6">RoCoG-v2 (Real Aerial)</td><td>Pulakurthi et al. [85]</td><td>75</td></tr>
+            <tr><td>Shah et al.</td><td>89</td></tr>
+            <tr><td>Xian et al.</td><td>86.7</td></tr>
+            <tr><td>Zhu et al.</td><td>80.22</td></tr>
+            <tr><td>Reddy et al.</td><td>87</td></tr>
+            <tr><td><b>Proposed Method</b></td><td><b>88.7</b></td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Datasets</h2>
+        <ul>
+            <li>
+                <a href="https://github.com/reddyav1/RoCoG-v2" target="_blank">RoCoG-v2</a>
+            </li>
+        </ul>
+        <p>
+            This study utilized the real aerial subset of the RoCoG-v2 dataset, which includes
+            178 video samples capturing 7 key activities performed by 10 individuals in outdoor
+            settings.
+        </p>
+    </section>
+
+    <section id="citation">
+        <h2>Citation</h2>
+        <p>
+            Shahid, H., Najam, S., &amp; Jalal, A. (2025).
+            <i>Drone Surveillance for Action Recognition via Mask R-CNN and Transformer Learning.</i>
+        </p>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>
+            For questions about this work, please contact:<br>
+            <b>harrisshahid.m@gmail.com</b>
+        </p>
+    </section>
+
+    <footer>
+        © 2026. All rights reserved.
+    </footer>
+
+</div>
+
+</body>
+</html>
